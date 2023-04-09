@@ -1,0 +1,73 @@
+/* 
+ * Time Complexity : O(nlogn) 
+ * Space Complexit : O(n)
+ */
+var topKFrequent = function(nums, k) {
+    const map = new Map();
+
+    nums.forEach((n)=>{
+        if(map.get(n)){
+            map.set(n, map.get(n)+1);
+        }else{
+            map.set(n,1);
+        }
+    })
+
+    const entries = Array.from(map.entries());
+    (entries).sort((a,b)=> {
+        if(a[1] < b[1]){
+            return 1
+        }
+        return -1;
+    })
+
+    return entries.slice(0,k).map((entry)=> entry[0]);
+};
+
+
+/*
+ * Optimal solution
+ * 
+ * Time Complexity: O(n)
+ * Space Complexity: O(n)
+ *
+ * Hint: Uses bucket sort /
+
+
+
+var topKFrequent = function(nums, k) {
+    const bucket = new Array(nums.length+1);
+
+    const map = new Map();
+    for(let i = 0; i < nums.length; i++){
+        if(map.get(nums[i])){
+            map.set(nums[i], map.get(nums[i])+1);
+        }else{
+            map.set(nums[i], 1);
+        }
+    }
+
+    Array.from(map.entries()).forEach(([num, count])=>{
+        if(bucket[count]){
+            bucket[count].push(num)
+        }else{
+            bucket[count] = [num];
+        }
+    })
+
+    const solution = []
+    let i = bucket.length - 1;
+
+    while(solution.length < k){
+        if(bucket[i]){
+            let j = 0;
+            while(solution.length < k && j < bucket[i].length){
+                solution.push(bucket[i][j]);
+                j++;
+            }
+        }
+        i--;
+    }
+
+    return solution;
+};

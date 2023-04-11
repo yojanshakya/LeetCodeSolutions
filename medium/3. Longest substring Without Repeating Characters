@@ -1,0 +1,39 @@
+/*
+ * Optimal Solution (beats 94%)
+ * Time Complexity: O(n)
+ * Space Complexity: O(n)
+ *
+*/
+
+var lengthOfLongestSubstring = function(s) {
+    let p1 = 0;
+    let p2 = 1;
+
+    const map = {
+        [s[p1]]: 1
+    };
+
+    let solution = 0;
+
+    while(p1<=p2 && p2 < s.length){
+        let curr = s[p2];
+        
+        if(map[curr] || s[p1]==curr){
+            while(s[p1] !== curr){
+                delete map[s[p1]];
+                p1++;
+            }
+            delete map[s[p1]];
+            p1++;
+        }else{
+            map[curr] = 1;
+        }
+
+        if(p2-p1 > solution){
+            solution = p2-p1;
+        }
+        p2++;
+    }
+
+    return solution+1; 
+};

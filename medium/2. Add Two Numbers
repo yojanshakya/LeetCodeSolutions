@@ -1,0 +1,49 @@
+from typing import Optional
+
+class ListNode:
+    def __init__(self, val=0, next=None):
+        self.val = val
+        self.next = next
+
+class Solution:
+    def addTwoNumbers(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
+        carry = 0
+        head1 = l1
+        head2 = l2
+        solution = ListNode(0)
+        solutionIt = solution
+        
+        while(head1 is not None and head2 is not None):
+            sum = (head1.val + head2.val + carry) % 10
+            carry = (head1.val + head2.val + carry) // 10
+
+            solutionIt.next = ListNode(sum, None)
+            solutionIt = solutionIt.next
+            head1 = head1.next
+            head2 = head2.next
+        
+        while(head1 is not None):
+            sum = (head1.val + carry) % 10
+            carry = (head1.val + carry) // 10
+            
+            solutionIt.next = ListNode(sum, None)
+            solutionIt = solutionIt.next
+            head1 = head1.next
+        while(head2 is not None):
+            sum = (head2.val + carry) % 10
+            carry = (head2.val + carry) // 10
+            
+            solutionIt.next = ListNode(sum, None)
+            solutionIt = solutionIt.next
+            head2 = head2.next
+        
+        if carry != 0:
+          solutionIt.next = ListNode(carry, None)
+            
+        return solution.next
+            
+
+solution = Solution()
+l1 = ListNode(2, ListNode(4, ListNode(3,None)))
+l2 = ListNode(5, ListNode(6, ListNode(4)))
+solution.addTwoNumbers(l1, l2)       

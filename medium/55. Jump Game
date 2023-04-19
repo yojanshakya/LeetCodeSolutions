@@ -1,0 +1,22 @@
+
+"""
+ Recursive Solution (Not Optimal)
+ Time Complexity : ? (todo)
+ Space Complexity : ? (todo)
+"""
+class Solution:
+	def canJump(self, nums: List[int], index = 0) -> bool:
+		if(index >= len(nums)):
+			return False
+
+		if index == (len(nums) - 1):
+			return True
+
+		currVal = nums[index]
+
+		sol = False
+		while (currVal != 0):
+			sol = self.canJump(nums, index + currVal) or sol
+			currVal -= 1
+		
+		return sol

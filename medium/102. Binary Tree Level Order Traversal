@@ -1,0 +1,35 @@
+"""
+ Not the most optimal solution
+ Time Complexity: O(n) where n is no of nodes
+ Space Complexity: O(n)
+"""
+
+class Solution:
+	def levelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
+		if not root:
+			return []
+
+		queue = [[root]]
+		solution = [[root.val]]
+
+		while(len(queue) > 0):
+			nodeArr = queue.pop(0)
+			nextLevel = []
+			nextLevelSolution = []
+
+			for node in nodeArr:
+				if node.left:
+					nextLevel.append(node.left)
+					nextLevelSolution.append(node.left.val)
+
+				if node.right: 
+					nextLevel.append(node.right)
+					nextLevelSolution.append(node.right.val)
+			
+			if(len(nextLevel) > 0):
+				queue.append(nextLevel)
+			
+			if(len(nextLevelSolution) > 0):
+				solution.append(nextLevelSolution)
+
+		return solution

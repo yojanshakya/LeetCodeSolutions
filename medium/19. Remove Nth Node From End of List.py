@@ -5,6 +5,10 @@ class ListNode:
 		self.val = val
 		self.next = next
 
+"""
+	Space Complexity: O(1)
+	Time Complexity: O(n)
+"""
 class Solution:
 	def removeNthFromEnd(self, head: Optional[ListNode], n: int) -> Optional[ListNode]:
 		if not head.next:
@@ -23,9 +27,5 @@ class Solution:
 			p1 = p1.next
 			p2 = p2.next 
 
-		return p1.val
-
-
-solution = Solution()
-
-print(solution.removeNthFromEnd(ListNode(3, ListNode(2, ListNode(1))), 3))
+		p1.next = p1.next.next
+		return tempHead.next
